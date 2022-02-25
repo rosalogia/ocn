@@ -1,0 +1,5 @@
+(test
+ (name ocn)
+ (libraries lwt bin_prot)
+ (preprocess
+  (pps ppx_bin_prot)))
