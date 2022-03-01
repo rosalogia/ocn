@@ -14,3 +14,5 @@ val read_bp_bytes : bytes -> string
 (** Produces the Unix socket address corresponding to
 localhost:<port> for convenience *)
 val localhost : int -> Unix.sockaddr
+(** Creates and returns a socket bound to localhost:<port> *)
+val create_socket : int -> Lwt_unix.file_descr Lwt.t

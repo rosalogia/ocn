@@ -1,3 +1,5 @@
+open Lwt
+
 let write_bp_string s =
     let buff = Bin_prot.(Utils.bin_dump Type_class.bin_writer_string s) in
     let len = Bin_prot.Size.bin_size_string s in
@@ -22,3 +24,11 @@ let read_bp_bytes b =
 
 let localhost port =
   Lwt_unix.ADDR_INET(Unix.inet_addr_loopback, port)
+
+let create_socket port =
+    let open Lwt_unix in
+    let ssock = socket PF_INET SOCK_DGRAM 0 in
+    let addr = ADDR_INET(Unix.inet_addr_loopback, port) in
+    let%lwt () = bind ssock addr in
+    let%lwt () = Lwt_io.printf "Bound to address: %s\n" (addr_to_string addr) in
+    return ssock
